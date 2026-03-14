@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kaitlyn & Joao · April 2</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Kaitlyn & Joao</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:     #050914;
-    --card:     rgba(255,255,255,0.035);
-    --border:   rgba(255,255,255,0.08);
+    --navy:     #060a17;
+    --card:     rgba(255,255,255,0.032);
+    --border:   rgba(255,255,255,0.075);
     --gold:     #d4a843;
     --rose:     #c9607a;
     --lavender: #8878b8;
     --sky:      #4db8e8;
     --white:    #ede8e0;
-    --muted:    rgba(237,232,224,0.45);
-    --faint:    rgba(237,232,224,0.12);
+    --muted:    rgba(237,232,224,0.42);
+    --faint:    rgba(237,232,224,0.1);
   }
 
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -24,10 +26,25 @@
   body {
     background: var(--navy);
     color: var(--white);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-weight: 300;
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.018;
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* ─── STARFIELD ─── */
@@ -43,168 +60,202 @@
 
   /* ─── AURORA ─── */
   .aurora {
-    position:fixed; top:0; left:0; right:0; height:50vh;
-    background: radial-gradient(ellipse 120% 60% at 50% -10%,
-      rgba(77,184,232,0.06) 0%,
+    position:fixed; top:0; left:0; right:0; height:55vh;
+    background: radial-gradient(ellipse 130% 65% at 50% -8%,
+      rgba(77,184,232,0.055) 0%,
       rgba(136,120,184,0.04) 50%,
       transparent 100%);
     pointer-events:none; z-index:0;
-    animation: aur 10s ease-in-out infinite alternate;
+    animation: aur 12s ease-in-out infinite alternate;
   }
   @keyframes aur {
-    from { opacity:.7; }
-    to   { opacity:1; }
+    from { opacity:.65; transform: translateX(-1%); }
+    to   { opacity:1;   transform: translateX(1%); }
   }
 
   /* ─── PAGE ─── */
   .page {
     position:relative; z-index:1;
     max-width:760px; margin:0 auto;
-    padding:72px 24px 120px;
+    padding: 80px 24px 140px;
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
+    padding-bottom: max(140px, calc(80px + env(safe-area-inset-bottom)));
   }
 
   /* ─── HEADER ─── */
-  header { text-align:center; margin-bottom:56px; }
+  header { text-align:center; margin-bottom:60px; }
   .eyebrow {
-    font-size:10px; letter-spacing:.4em; text-transform:uppercase;
-    color:var(--lavender); margin-bottom:20px;
+    font-family: 'DM Mono', monospace;
+    font-size:10px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--lavender); margin-bottom:22px;
+    opacity: .8;
   }
   header h1 {
     font-family:'Cormorant Garamond', serif;
-    font-size: clamp(48px, 9vw, 88px);
-    font-weight:300; line-height:1.05; color:var(--white);
+    font-size: clamp(52px, 10vw, 92px);
+    font-weight:300; line-height:1.02; color:var(--white);
   }
   header h1 em { color:var(--rose); font-style:italic; }
   .header-rule {
-    width:48px; height:1px;
+    width:40px; height:1px;
     background:linear-gradient(90deg, transparent, var(--lavender), transparent);
-    margin:24px auto 0;
+    margin:26px auto 0;
   }
 
   /* ─── COUNTDOWN ─── */
   .countdown {
-    display:flex; justify-content:center; gap:6px;
-    flex-wrap:wrap; margin-bottom:72px;
+    display:flex; justify-content:center; gap:0;
+    flex-wrap:nowrap; margin-bottom:80px;
+    width: 100%;
   }
   .cd-block {
-    background:var(--card);
+    background: rgba(255,255,255,0.025);
     border:1px solid var(--border);
-    border-radius:8px;
-    padding:18px 22px 14px;
-    text-align:center; min-width:74px;
-    backdrop-filter:blur(12px);
+    padding:16px 0 13px;
+    text-align:center;
+    flex: 1;
+    min-width: 0;
     display:flex; flex-direction:column; align-items:center;
   }
+  .cd-block:first-child { border-radius:8px 0 0 8px; }
+  .cd-block:last-child  { border-radius:0 8px 8px 0; }
+  .cd-block + .cd-block { border-left: none; }
   .cd-num {
-    font-family:'Cormorant Garamond', serif;
-    font-size:44px; line-height:1; font-weight:300;
+    font-family:'DM Mono', monospace;
+    font-size: clamp(28px, 7vw, 40px);
+    line-height:1; font-weight:300;
     color:var(--gold); display:block;
-    width:100%; text-align:center;
+    letter-spacing:-.02em;
   }
   .cd-label {
-    font-size:9px; letter-spacing:.25em; text-transform:uppercase;
-    color:var(--muted); margin-top:6px; display:block;
+    font-family:'DM Mono', monospace;
+    font-size: clamp(6px, 1.8vw, 8px);
+    letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); margin-top:7px; display:block;
   }
   .cd-sep {
-    align-self:center; font-size:24px;
-    color:var(--faint); padding-bottom:12px;
-    font-weight:200;
+    align-self:stretch;
+    font-size: clamp(16px, 4vw, 22px);
+    color:var(--faint);
+    font-weight:200; z-index:1;
+    background: rgba(255,255,255,0.025);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(2px, 1vw, 6px);
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 0; padding-bottom: 14px;
+    flex-shrink: 0;
   }
 
-  /* ─── SECTION RULE ─── */
+  /* ─── SECTION LABEL ─── */
   .sec-label {
+    font-family:'DM Mono', monospace;
     font-size:9px; letter-spacing:.4em; text-transform:uppercase;
-    color:var(--lavender); margin-bottom:28px;
-    display:flex; align-items:center; gap:14px;
+    color:var(--lavender); margin-bottom:32px;
+    display:flex; align-items:center; gap:16px;
+    opacity:.75;
   }
   .sec-label::after {
     content:''; flex:1; height:1px;
-    background:linear-gradient(90deg, rgba(136,120,184,.3), transparent);
+    background:linear-gradient(90deg, rgba(136,120,184,.25), transparent);
   }
 
   /* ─── TIMELINE ─── */
-  .journey { position:relative; margin-bottom:64px; }
+  .journey { position:relative; margin-bottom:72px; }
   .j-line {
-    position:absolute; left:28px; top:52px; bottom:52px; width:1px;
-    background:linear-gradient(180deg, var(--sky), var(--lavender), var(--rose), var(--rose));
-    opacity:.25;
+    position:absolute; left:27px; top:56px; bottom:56px; width:1px;
+    background:linear-gradient(180deg, var(--sky), var(--lavender), var(--rose));
+    opacity:.18;
   }
 
-  .segment { display:flex; gap:20px; margin-bottom:20px; align-items:flex-start; }
+  .segment { display:flex; gap:22px; margin-bottom:22px; align-items:flex-start; }
 
   .seg-icon {
-    width:56px; height:56px; border-radius:50%;
+    width:54px; height:54px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    font-size:22px; flex-shrink:0; position:relative; z-index:1;
+    font-size:21px; flex-shrink:0; position:relative; z-index:1;
     border:1px solid var(--border);
-    background:var(--card);
+    background: rgba(255,255,255,0.03);
   }
-  .seg-icon.i-flight  { border-color:rgba(77,184,232,.35); box-shadow:0 0 20px rgba(77,184,232,.1); }
-  .seg-icon.i-klav    { border-color:rgba(136,120,184,.35); box-shadow:0 0 20px rgba(136,120,184,.1); }
-  .seg-icon.i-gold    { border-color:rgba(212,168,67,.35); box-shadow:0 0 20px rgba(212,168,67,.1); }
-  .seg-icon.i-rose    { border-color:rgba(201,96,122,.4); box-shadow:0 0 20px rgba(201,96,122,.12); }
+  .seg-icon.i-flight  { border-color:rgba(77,184,232,.3); box-shadow:0 0 18px rgba(77,184,232,.08); }
+  .seg-icon.i-klav    { border-color:rgba(136,120,184,.3); box-shadow:0 0 18px rgba(136,120,184,.08); }
+  .seg-icon.i-gold    { border-color:rgba(212,168,67,.3); box-shadow:0 0 18px rgba(212,168,67,.08); }
+  .seg-icon.i-rose    { border-color:rgba(201,96,122,.35); box-shadow:0 0 18px rgba(201,96,122,.1); }
 
   .seg-body { flex:1; padding-top:4px; }
 
   .seg-head {
-    display:flex; align-items:baseline; justify-content:space-between;
+    display:flex; align-items:flex-start; justify-content:space-between;
     gap:12px; margin-bottom:4px;
   }
   .seg-title {
     font-family:'Cormorant Garamond', serif;
-    font-size:20px; font-weight:400; color:var(--white);
+    font-size:22px; font-weight:400; color:var(--white);
+    line-height:1.1;
   }
   .seg-meta {
-    font-size:10px; color:var(--muted); letter-spacing:.06em;
-    margin-bottom:10px;
+    font-family:'DM Mono', monospace;
+    font-size:9.5px; color:var(--muted); letter-spacing:.06em;
+    margin-bottom:12px; margin-top:2px;
   }
 
   /* ticket button */
   .ticket-btn {
-    font-family:'Inter', sans-serif;
-    font-size:9px; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--lavender); background:none; border:1px solid rgba(136,120,184,.3);
-    border-radius:4px; padding:4px 10px; cursor:pointer;
+    font-family:'DM Mono', monospace;
+    font-size:8.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--lavender); background:none; border:1px solid rgba(136,120,184,.25);
+    border-radius:3px; padding:7px 12px; cursor:pointer;
     transition:all .2s; white-space:nowrap; flex-shrink:0;
+    margin-top:3px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 36px; display: flex; align-items: center;
   }
-  .ticket-btn:hover { color:var(--white); border-color:rgba(136,120,184,.7); background:rgba(136,120,184,.08); }
-  .ticket-btn.gold  { color:var(--gold); border-color:rgba(212,168,67,.3); }
-  .ticket-btn.gold:hover { border-color:rgba(212,168,67,.7); background:rgba(212,168,67,.08); }
-  .ticket-btn.sky   { color:var(--sky); border-color:rgba(77,184,232,.3); }
-  .ticket-btn.sky:hover  { border-color:rgba(77,184,232,.7); background:rgba(77,184,232,.08); }
+  .ticket-btn:hover, .ticket-btn:active { color:var(--white); border-color:rgba(136,120,184,.6); background:rgba(136,120,184,.07); }
+  .ticket-btn.gold  { color:var(--gold); border-color:rgba(212,168,67,.25); }
+  .ticket-btn.gold:hover, .ticket-btn.gold:active { border-color:rgba(212,168,67,.6); background:rgba(212,168,67,.07); }
+  .ticket-btn.sky   { color:var(--sky); border-color:rgba(77,184,232,.25); }
+  .ticket-btn.sky:hover, .ticket-btn.sky:active  { border-color:rgba(77,184,232,.6); background:rgba(77,184,232,.07); }
 
   /* route card */
   .seg-visual {
-    background:rgba(255,255,255,.025);
+    background: rgba(255,255,255,0.022);
     border:1px solid var(--border);
-    border-radius:8px; padding:14px 18px;
+    border-radius:8px; padding:16px 18px;
     position:relative; overflow:hidden;
   }
-  .route-row { display:flex; align-items:center; gap:10px; }
+  .route-row { display:flex; align-items:center; gap:12px; }
   .route-end { display:flex; flex-direction:column; gap:3px; }
   .route-code {
     font-family:'Cormorant Garamond', serif;
-    font-size:22px; font-weight:600; line-height:1;
+    font-size:26px; font-weight:600; line-height:1;
   }
-  .route-city { font-size:9px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; }
+  .route-city {
+    font-family:'DM Mono', monospace;
+    font-size:8px; color:var(--muted); letter-spacing:.12em; text-transform:uppercase;
+  }
   .route-track {
     flex:1; position:relative; height:1px;
     background:var(--faint); border-radius:1px; overflow:visible;
   }
   .route-dot {
     position:absolute; top:50%; transform:translateY(-50%);
-    width:7px; height:7px; border-radius:50%;
+    width:6px; height:6px; border-radius:50%;
     animation:travel 8s cubic-bezier(.4,0,.6,1) infinite;
   }
   @keyframes travel {
     0%   { left:0%;               opacity:0; }
     6%   { opacity:1; }
     94%  { opacity:1; }
-    100% { left:calc(100% - 7px); opacity:0; }
+    100% { left:calc(100% - 6px); opacity:0; }
   }
   .seg-times {
     display:flex; justify-content:space-between;
-    margin-top:10px; font-size:10px; color:var(--muted);
+    margin-top:12px;
+    font-family:'DM Mono', monospace;
+    font-size:9px; color:var(--muted);
+    letter-spacing:.04em;
   }
   .seg-times b { color:var(--white); font-weight:400; }
 
@@ -217,19 +268,19 @@
   /* ─── REUNION CARD ─── */
   .reunion {
     text-align:center;
-    background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,96,122,.09), transparent);
-    border:1px solid rgba(201,96,122,.18);
-    border-radius:16px; padding:48px 32px;
+    background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,96,122,.08), transparent);
+    border:1px solid rgba(201,96,122,.15);
+    border-radius:16px; padding:52px 32px;
     position:relative; overflow:hidden;
   }
   .reunion::after {
     content:'';
     position:absolute; inset:0;
-    background:linear-gradient(135deg, rgba(201,96,122,.04) 0%, transparent 50%, rgba(136,120,184,.04) 100%);
+    background:linear-gradient(135deg, rgba(201,96,122,.03) 0%, transparent 50%, rgba(136,120,184,.03) 100%);
     pointer-events:none;
   }
   .heart {
-    font-size:44px; display:inline-block;
+    font-size:42px; display:inline-block;
     animation:hb 1.6s ease-in-out infinite;
   }
   @keyframes hb {
@@ -241,90 +292,213 @@
   }
   .reunion h2 {
     font-family:'Cormorant Garamond', serif;
-    font-size:34px; font-weight:300; color:var(--rose);
-    margin:14px 0 6px;
+    font-size:38px; font-weight:300; color:var(--rose);
+    margin:16px 0 6px;
   }
   .reunion .when {
-    font-size:12px; color:var(--gold); letter-spacing:.08em; margin-top:16px;
+    font-family:'DM Mono', monospace;
+    font-size:11px; color:var(--gold); letter-spacing:.1em; margin-top:18px;
   }
   .reunion .coxinha {
-    font-size:11px; color:var(--muted); font-style:italic; margin-top:8px;
+    font-size:11px; color:var(--muted); font-style:italic; margin-top:10px;
   }
 
-  /* ─── MODAL ─── */
+  /* ─────────────────────────────────────────
+     BOARDING PASS MODAL
+  ───────────────────────────────────────── */
   .modal-overlay {
     position:fixed; inset:0; z-index:100;
-    background:rgba(5,9,20,.75);
-    backdrop-filter:blur(10px);
-    display:flex; align-items:center; justify-content:center;
+    background:rgba(3,6,16,.85);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    display:flex; align-items:flex-start; justify-content:center;
     opacity:0; pointer-events:none;
     transition:opacity .22s;
+    padding: max(56px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal-overlay.open { opacity:1; pointer-events:auto; }
 
-  .modal {
-    background:#0c1122;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:14px;
-    width:min(440px, calc(100vw - 40px));
-    padding:32px 28px 28px;
-    position:relative;
-    box-shadow:0 40px 100px rgba(0,0,0,.7);
-    transform:translateY(14px) scale(.98);
-    transition:transform .25s cubic-bezier(.34,1.4,.64,1), opacity .22s;
-    opacity:0;
+  /* The pass itself */
+  .boarding-pass {
+    width: min(420px, 100%);
+    position: relative;
+    margin: auto;
+    transform: translateY(16px) scale(.97);
+    transition: transform .3s cubic-bezier(.34,1.4,.64,1), opacity .22s;
+    opacity: 0;
+    padding-top: 44px;
   }
-  .modal-overlay.open .modal { transform:translateY(0) scale(1); opacity:1; }
+  .modal-overlay.open .boarding-pass { transform: translateY(0) scale(1); opacity: 1; }
 
-  .modal-close {
-    position:absolute; top:16px; right:18px;
-    background:none; border:none; cursor:pointer;
-    color:var(--muted); font-size:17px; line-height:1;
-    transition:color .15s;
+  .bp-close {
+    position: absolute; top: 0; right: 0;
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 12px;
+    font-family: 'DM Mono', monospace; letter-spacing: .15em;
+    text-transform: uppercase; transition: color .15s;
+    display: flex; align-items: center; gap: 6px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    padding: 8px 0;
+    min-height: 44px;
   }
-  .modal-close:hover { color:var(--white); }
+  .bp-close:hover, .bp-close:active { color: var(--white); }
+  .bp-close::before { content: '✕'; font-size: 14px; }
 
-  .modal-eyebrow {
-    font-size:9px; letter-spacing:.35em; text-transform:uppercase;
-    color:var(--lavender); margin-bottom:14px;
-  }
-  .modal h3 {
-    font-family:'Cormorant Garamond', serif;
-    font-size:22px; font-weight:400; margin-bottom:22px;
-    color:var(--white);
-  }
-
-  .modal-field { margin-bottom:12px; }
-  .modal-field label {
-    display:block; font-size:9px; letter-spacing:.25em; text-transform:uppercase;
-    color:var(--muted); margin-bottom:5px;
-  }
-  .modal-field .val {
-    font-family:'Cormorant Garamond', serif;
-    font-size:18px; color:var(--white);
-    background:rgba(255,255,255,.04);
-    border:1px solid var(--border);
-    border-radius:6px; padding:9px 14px;
-    letter-spacing:.04em;
+  /* main ticket body */
+  .bp-body {
+    background: #0d1325;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.04) inset;
   }
 
-  .modal-divider { height:1px; background:var(--border); margin:20px 0; }
-
-  .modal-btn {
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'Inter', sans-serif;
-    font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-    font-weight:500; color:#050914;
-    border:none; border-radius:6px;
-    padding:11px 20px; cursor:pointer;
-    text-decoration:none;
-    transition:opacity .2s, transform .15s;
+  /* top section */
+  .bp-top {
+    padding: 26px 26px 22px;
+    position: relative;
   }
-  .modal-btn:hover { opacity:.88; transform:translateY(-1px); }
-  .modal-btn svg { width:12px; height:12px; flex-shrink:0; }
-  .modal-btn.sky-btn  { background:linear-gradient(135deg,#4db8e8,#60c8f4); }
-  .modal-btn.lav-btn  { background:linear-gradient(135deg,#8878b8,#a090d4); }
-  .modal-btn.gold-btn { background:linear-gradient(135deg,#d4a843,#e0b84a); }
+  .bp-carrier {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: .35em; text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .bp-carrier-name { opacity: .45; }
+  .bp-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px; letter-spacing: .25em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 3px;
+    border: 1px solid; opacity: .6;
+  }
+
+  /* route display */
+  .bp-route {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 20px;
+  }
+  .bp-city {
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .bp-city.right { text-align: right; }
+  .bp-iata {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 600; line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .bp-cityname {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
+    opacity: .4;
+  }
+  .bp-track {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 5px; padding: 0 14px; padding-bottom: 14px;
+  }
+  .bp-track-icon { font-size: 18px; opacity: .7; }
+  .bp-track-line {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* time row */
+  .bp-times {
+    display: flex; justify-content: space-between;
+    padding: 12px 14px;
+    background: rgba(255,255,255,.025);
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  .bp-time-block { display: flex; flex-direction: column; gap: 4px; }
+  .bp-time-block.right { text-align: right; }
+  .bp-time-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px; letter-spacing: .25em; text-transform: uppercase;
+    opacity: .35;
+  }
+  .bp-time-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px; font-weight: 400;
+    letter-spacing: .03em;
+  }
+  .bp-time-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px; opacity: .4; letter-spacing: .05em; margin-top: 1px;
+  }
+
+  /* perforated divider */
+  .bp-perf {
+    display: flex; align-items: center;
+    position: relative; margin: 0 -1px;
+  }
+  .bp-perf-notch {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #060a17;
+    border: 1px solid rgba(255,255,255,.09);
+    flex-shrink: 0;
+  }
+  .bp-perf-notch.left  { margin-left: -10px; }
+  .bp-perf-notch.right { margin-right: -10px; }
+  .bp-perf-line {
+    flex: 1; height: 1px;
+    border-top: 1.5px dashed rgba(255,255,255,.1);
+  }
+
+  /* bottom stub */
+  .bp-stub {
+    padding: 20px 26px 24px;
+  }
+  .bp-fields {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px 20px; margin-bottom: 20px;
+  }
+  .bp-field { display: flex; flex-direction: column; gap: 5px; }
+  .bp-field.full { grid-column: 1 / -1; }
+  .bp-field-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px; letter-spacing: .28em; text-transform: uppercase;
+    opacity: .35;
+  }
+  .bp-field-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px; font-weight: 400;
+    letter-spacing: .04em;
+    color: var(--white);
+  }
+  .bp-field-val.booking {
+    font-size: 20px; letter-spacing: .12em;
+  }
+
+  /* CTA link */
+  .bp-link {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    border-radius: 7px;
+    padding: 15px 20px;
+    transition: opacity .2s, transform .15s;
+    color: rgba(6,10,23,.9);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px;
+  }
+  .bp-link:hover, .bp-link:active { opacity: .85; transform: translateY(-1px); }
+  .bp-link svg { width: 11px; height: 11px; flex-shrink: 0; }
+  .bp-link.sky  { background: linear-gradient(135deg, #4db8e8, #68cbf7); }
+  .bp-link.lav  { background: linear-gradient(135deg, #8878b8, #a491d6); }
+  .bp-link.gold { background: linear-gradient(135deg, #d4a843, #e2bb56); }
+
+  /* color accent line at top of pass */
+  .bp-accent {
+    height: 3px; width: 100%;
+    display: block;
+  }
 
   /* ─── PARTICLES ─── */
   .particle {
@@ -335,9 +509,44 @@
   }
   @keyframes fu {
     0%   { opacity:0; transform:translateY(0); }
-    8%   { opacity:.45; }
-    92%  { opacity:.12; }
+    8%   { opacity:.35; }
+    92%  { opacity:.1; }
     100% { opacity:0; transform:translateY(-110vh); }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 480px) {
+    .page { padding-top: 56px; }
+
+    header { margin-bottom: 44px; }
+
+    .countdown { margin-bottom: 56px; }
+
+    /* Stack the seg-head so title + button don't fight */
+    .seg-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .ticket-btn { margin-top: 0; align-self: flex-start; }
+
+    /* Tighten segment gap */
+    .segment { gap: 14px; margin-bottom: 18px; }
+    .seg-icon { width: 44px; height: 44px; font-size: 18px; flex-shrink: 0; }
+    .j-line { left: 22px; }
+
+    /* Route card */
+    .route-code { font-size: 22px; }
+    .seg-times { font-size: 8.5px; }
+
+    /* Boarding pass IATA on small screens */
+    .bp-iata { font-size: 40px; }
+    .bp-top { padding: 20px 18px 18px; }
+    .bp-stub { padding: 16px 18px 20px; }
+
+    /* Reunion card */
+    .reunion { padding: 40px 20px; }
+    .reunion h2 { font-size: 30px; }
   }
 </style>
 </head>
@@ -378,11 +587,11 @@
             <div class="seg-title">Kaitlyn's Flight</div>
             <div class="seg-meta">F8 664 · Apr 1 → Apr 2 · Flair Airlines</div>
           </div>
-          <button class="ticket-btn sky" onclick="openModal('flight')">View Ticket ↗</button>
+          <button class="ticket-btn sky" onclick="openModal('flight')">Boarding Pass ↗</button>
         </div>
         <div class="seg-visual">
           <svg class="f-arc" viewBox="0 0 400 24" preserveAspectRatio="none">
-            <path d="M0 22 Q200 2 400 22" fill="none" stroke="rgba(77,184,232,0.12)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M0 22 Q200 2 400 22" fill="none" stroke="rgba(77,184,232,0.1)" stroke-width="1.5" stroke-dasharray="4 3"/>
           </svg>
           <div class="route-row">
             <div class="route-end">
@@ -473,7 +682,7 @@
 
     <!-- BUNNIES TRAIN -->
     <div class="segment">
-      <div class="seg-icon i-rose" style="font-size:19px">🐰🐰</div>
+      <div class="seg-icon i-rose" style="font-size:14px;letter-spacing:-2px;padding-left:2px">🐰🐰</div>
       <div class="seg-body">
         <div class="seg-head">
           <div>
@@ -515,76 +724,204 @@
 
 </div>
 
-<!-- ── MODAL: Kaitlyn's Flight ── -->
+<!-- ── BOARDING PASS: Kaitlyn's Flight ── -->
 <div class="modal-overlay" id="modal-flight" onclick="closeOnBg(event,'modal-flight')">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-flight')">✕</button>
-    <p class="modal-eyebrow">Boarding Pass · Kaitlyn's Flight</p>
-    <h3>Flair Airlines F8 664</h3>
-    <div class="modal-field">
-      <label>Reservation Number</label>
-      <div class="val">3RXEQ7</div>
+  <div class="boarding-pass">
+    <button class="bp-close" onclick="closeModal('modal-flight')">Close</button>
+    <div class="bp-body">
+      <span class="bp-accent" style="background:linear-gradient(90deg,#4db8e8,#60c8f4,rgba(77,184,232,0.2))"></span>
+      <div class="bp-top">
+        <div class="bp-carrier">
+          <span class="bp-carrier-name">Flair Airlines</span>
+          <span class="bp-type" style="color:var(--sky);border-color:rgba(77,184,232,.3)">F8 664</span>
+        </div>
+        <div class="bp-route">
+          <div class="bp-city">
+            <span class="bp-iata" style="color:var(--sky)">YXX</span>
+            <span class="bp-cityname">Abbotsford</span>
+          </div>
+          <div class="bp-track">
+            <span class="bp-track-icon">✈</span>
+            <div class="bp-track-line"></div>
+          </div>
+          <div class="bp-city right">
+            <span class="bp-iata" style="color:var(--sky)">YYZ</span>
+            <span class="bp-cityname">Toronto</span>
+          </div>
+        </div>
+        <div class="bp-times">
+          <div class="bp-time-block">
+            <span class="bp-time-lbl">Departs</span>
+            <span class="bp-time-val">11:05 PM</span>
+            <span class="bp-time-date">Apr 1, 2026</span>
+          </div>
+          <div class="bp-time-block right">
+            <span class="bp-time-lbl">Arrives</span>
+            <span class="bp-time-val">6:40 AM</span>
+            <span class="bp-time-date">Apr 2, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="bp-perf">
+        <div class="bp-perf-notch left"></div>
+        <div class="bp-perf-line"></div>
+        <div class="bp-perf-notch right"></div>
+      </div>
+      <div class="bp-stub">
+        <div class="bp-fields">
+          <div class="bp-field">
+            <span class="bp-field-lbl">Passenger</span>
+            <span class="bp-field-val">Pham</span>
+          </div>
+          <div class="bp-field right">
+            <span class="bp-field-lbl">Reservation</span>
+            <span class="bp-field-val booking" style="color:var(--sky)">3RXEQ7</span>
+          </div>
+        </div>
+        <a class="bp-link sky" href="https://res.flyflair.com/res/details" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Manage Booking
+        </a>
+      </div>
     </div>
-    <div class="modal-field">
-      <label>Last Name</label>
-      <div class="val">Pham</div>
-    </div>
-    <div class="modal-divider"></div>
-    <a class="modal-btn sky-btn" href="https://res.flyflair.com/res/details" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      View / Manage Booking
-    </a>
   </div>
 </div>
 
-<!-- ── MODAL: Kaitlyn's Train ── -->
+<!-- ── BOARDING PASS: Kaitlyn's Train ── -->
 <div class="modal-overlay" id="modal-ktrain" onclick="closeOnBg(event,'modal-ktrain')">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-ktrain')">✕</button>
-    <p class="modal-eyebrow">Booking · Kaitlyn's Train</p>
-    <h3>VIA Rail · Toronto → London</h3>
-    <div class="modal-field">
-      <label>Booking Number</label>
-      <div class="val">06ZVH1</div>
+  <div class="boarding-pass">
+    <button class="bp-close" onclick="closeModal('modal-ktrain')">Close</button>
+    <div class="bp-body">
+      <span class="bp-accent" style="background:linear-gradient(90deg,#8878b8,#a491d6,rgba(136,120,184,0.2))"></span>
+      <div class="bp-top">
+        <div class="bp-carrier">
+          <span class="bp-carrier-name">VIA Rail Canada</span>
+          <span class="bp-type" style="color:var(--lavender);border-color:rgba(136,120,184,.3)">Train</span>
+        </div>
+        <div class="bp-route">
+          <div class="bp-city">
+            <span class="bp-iata" style="color:var(--lavender)">YYZ</span>
+            <span class="bp-cityname">Toronto</span>
+          </div>
+          <div class="bp-track">
+            <span class="bp-track-icon">🚆</span>
+            <div class="bp-track-line"></div>
+          </div>
+          <div class="bp-city right">
+            <span class="bp-iata" style="color:var(--lavender)">YXU</span>
+            <span class="bp-cityname">London</span>
+          </div>
+        </div>
+        <div class="bp-times">
+          <div class="bp-time-block">
+            <span class="bp-time-lbl">Departs</span>
+            <span class="bp-time-val">~11:00 AM</span>
+            <span class="bp-time-date">Apr 2, 2026</span>
+          </div>
+          <div class="bp-time-block right">
+            <span class="bp-time-lbl">Arrives</span>
+            <span class="bp-time-val">~1:00 PM</span>
+            <span class="bp-time-date">Apr 2, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="bp-perf">
+        <div class="bp-perf-notch left"></div>
+        <div class="bp-perf-line"></div>
+        <div class="bp-perf-notch right"></div>
+      </div>
+      <div class="bp-stub">
+        <div class="bp-fields">
+          <div class="bp-field">
+            <span class="bp-field-lbl">Passenger</span>
+            <span class="bp-field-val">Linh Nhi Pham</span>
+          </div>
+          <div class="bp-field">
+            <span class="bp-field-lbl">Booking</span>
+            <span class="bp-field-val booking" style="color:var(--lavender)">06ZVH1</span>
+          </div>
+        </div>
+        <a class="bp-link lav" href="https://reservia.viarail.ca/en/booking/view" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Booking
+        </a>
+      </div>
     </div>
-    <div class="modal-field">
-      <label>First Name</label>
-      <div class="val">Linh Nhi</div>
-    </div>
-    <div class="modal-field">
-      <label>Last Name</label>
-      <div class="val">Pham</div>
-    </div>
-    <div class="modal-divider"></div>
-    <a class="modal-btn lav-btn" href="https://reservia.viarail.ca/en/booking/view" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      View Booking
-    </a>
   </div>
 </div>
 
-<!-- ── MODAL: Joao's Train ── -->
+<!-- ── BOARDING PASS: Joao's Train ── -->
 <div class="modal-overlay" id="modal-jtrain" onclick="closeOnBg(event,'modal-jtrain')">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('modal-jtrain')">✕</button>
-    <p class="modal-eyebrow">Booking · Joao's Train</p>
-    <h3>VIA Rail · Windsor → London</h3>
-    <div class="modal-divider"></div>
-    <a class="modal-btn gold-btn" href="https://reservia.viarail.ca/en/booking/view/UA3RYH?utm_campaign=reservia-booking&utm_medium=email&utm_source=reservia-booking-boarding-pass&utm_content=cta-view-modify-booking" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      View Booking
-    </a>
+  <div class="boarding-pass">
+    <button class="bp-close" onclick="closeModal('modal-jtrain')">Close</button>
+    <div class="bp-body">
+      <span class="bp-accent" style="background:linear-gradient(90deg,#d4a843,#e2bb56,rgba(212,168,67,0.2))"></span>
+      <div class="bp-top">
+        <div class="bp-carrier">
+          <span class="bp-carrier-name">VIA Rail Canada</span>
+          <span class="bp-type" style="color:var(--gold);border-color:rgba(212,168,67,.3)">Train</span>
+        </div>
+        <div class="bp-route">
+          <div class="bp-city">
+            <span class="bp-iata" style="color:var(--gold)">YQG</span>
+            <span class="bp-cityname">Windsor</span>
+          </div>
+          <div class="bp-track">
+            <span class="bp-track-icon">🚂</span>
+            <div class="bp-track-line"></div>
+          </div>
+          <div class="bp-city right">
+            <span class="bp-iata" style="color:var(--gold)">YXU</span>
+            <span class="bp-cityname">London</span>
+          </div>
+        </div>
+        <div class="bp-times">
+          <div class="bp-time-block">
+            <span class="bp-time-lbl">Departs</span>
+            <span class="bp-time-val">8:43 AM</span>
+            <span class="bp-time-date">Apr 2, 2026</span>
+          </div>
+          <div class="bp-time-block right">
+            <span class="bp-time-lbl">Arrives</span>
+            <span class="bp-time-val">10:39 AM</span>
+            <span class="bp-time-date">Apr 2, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="bp-perf">
+        <div class="bp-perf-notch left"></div>
+        <div class="bp-perf-line"></div>
+        <div class="bp-perf-notch right"></div>
+      </div>
+      <div class="bp-stub">
+        <div class="bp-fields">
+          <div class="bp-field">
+            <span class="bp-field-lbl">Passenger</span>
+            <span class="bp-field-val">Joao</span>
+          </div>
+          <div class="bp-field">
+            <span class="bp-field-lbl">Booking</span>
+            <span class="bp-field-val booking" style="color:var(--gold)">UA3RYH</span>
+          </div>
+        </div>
+        <a class="bp-link gold" href="https://reservia.viarail.ca/en/booking/view/UA3RYH?utm_campaign=reservia-booking&utm_medium=email&utm_source=reservia-booking-boarding-pass&utm_content=cta-view-modify-booking" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Booking
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 // ─── STARS ───
 const sf = document.getElementById('sf');
-for (let i = 0; i < 200; i++) {
+const starCount = window.innerWidth < 480 ? 100 : 200;
+for (let i = 0; i < starCount; i++) {
   const el = document.createElement('div');
   el.className = 's';
   const sz = Math.random() * 1.8 + 0.3;
-  const lo = (Math.random() * 0.25 + 0.04).toFixed(2);
+  const lo = (Math.random() * 0.22 + 0.03).toFixed(2);
   const hi = (parseFloat(lo) + Math.random() * 0.45 + 0.15).toFixed(2);
   el.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--lo:${lo};--hi:${hi};--d:${(Math.random()*5+2).toFixed(1)}s;--dl:-${(Math.random()*8).toFixed(1)}s`;
   sf.appendChild(el);
@@ -592,10 +929,10 @@ for (let i = 0; i < 200; i++) {
 
 // ─── PARTICLES ───
 const pc = ['var(--rose)','var(--lavender)','var(--sky)','var(--gold)'];
-for (let i = 0; i < 14; i++) {
+for (let i = 0; i < 12; i++) {
   const el = document.createElement('div');
   el.className = 'particle';
-  const sz = Math.random() * 4 + 1.5;
+  const sz = Math.random() * 3.5 + 1.5;
   el.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${Math.random()*15}%;background:${pc[Math.floor(Math.random()*pc.length)]};--fd:${(Math.random()*16+10).toFixed(1)}s;--fdl:-${(Math.random()*14).toFixed(1)}s`;
   document.body.appendChild(el);
 }
@@ -617,13 +954,22 @@ function tick() {
 tick(); setInterval(tick, 1000);
 
 // ─── MODALS ───
+let scrollY = 0;
 function openModal(id) {
   document.getElementById('modal-' + id).classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // iOS-safe scroll lock
+  scrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = '100%';
 }
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
-  document.body.style.overflow = '';
+  // Restore scroll position
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  window.scrollTo(0, scrollY);
 }
 function closeOnBg(e, id) {
   if (e.target === e.currentTarget) closeModal(id);
@@ -631,8 +977,7 @@ function closeOnBg(e, id) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.open').forEach(m => {
-      m.classList.remove('open');
-      document.body.style.overflow = '';
+      closeModal(m.id);
     });
   }
 });
